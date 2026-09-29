@@ -76,18 +76,7 @@ with tab2:
                     elif "429" in error_msg:
                         st.warning("⏳ API Key đang bị giới hạn lượt hỏi liên tục. Vui lòng đợi 1 phút rồi thử lại nha!")
                     else:
-                        st.error(f"Có lỗi xảy ra: {error_msg}")
-                    st.error(f"Có lỗi xảy ra: {error_msg}")
-            st.write(response.text)
-        except Exception as e:
-            error_msg = str(e)
-            if "503" in error_msg:
-                st.warning("⚠️ Máy chủ AI đang tạm quá tải. Bạn ráng đợi khoảng 30 giây rồi bấm nút phân tích lại nhé!")
-            elif "429" in error_msg:
-                st.warning("⏳ API Key đang bị giới hạn lượt hỏi liên tục. Vui lòng đợi 1 phút rồi thử lại nha!")
-            else:
-                st.error(f"Có lỗi xảy ra: {error_msg}")
-
+                        st.error(f"Có lỗi xảy ra: {error_msg}")                
 # ================= TAB 3: LỊCH SỬ =================
 with tab3:
     st.info("Tính năng lưu lịch sử sẽ được cập nhật trong phiên bản sau.")
