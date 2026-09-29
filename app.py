@@ -64,17 +64,19 @@ with tab2:
                 try:
                     client = genai.Client(api_key=api_key)
                     img = Image.open(chart_file)
-                    sys_prompt = f"Là chuyên gia Phân tích Kỹ thuật Forex. Dựa vào ảnh biểu đồ và bối cảnh: '{chart_context}'. Đưa ra góc nhìn ngắn gọn, súc tích nhất."     
+                    sys_prompt = f"Là chuyên gia Phân tích Kỹ thuật Forex. Dựa vào ảnh biểu đồ và bối cảnh: '{chart_context}'. Đưa ra góc nhìn ngắn gọn, súc tích nhất."
+                    
                     response = client.models.generate_content(model='gemini-1.5-flash', contents=[img, sys_prompt])
                     st.success("Góc nhìn từ AI:")
                     st.write(response.text)
-            except Exception as e:
-                error_msg = str(e)
-                if "503" in error_msg:
-                    st.warning("⚠️ Máy chủ AI đang tạm quá tải. Bạn ráng đợi khoảng 30 giây rồi bấm nút phân tích lại nhé!")
-                elif "429" in error_msg:
-                    st.warning("⏳ API Key đang bị giới hạn lượt hỏi liên tục. Vui lòng đợi 1 phút rồi thử lại nha!")
-                else:
+                except Exception as e:
+                    error_msg = str(e)
+                    if "503" in error_msg:
+                        st.warning("⚠️ Máy chủ AI đang tạm quá tải. Bạn ráng đợi khoảng 30 giây rồi bấm nút phân tích lại nhé!")
+                    elif "429" in error_msg:
+                        st.warning("⏳ API Key đang bị giới hạn lượt hỏi liên tục. Vui lòng đợi 1 phút rồi thử lại nha!")
+                    else:
+                        st.error(f"Có lỗi xảy ra: {error_msg}")
                     st.error(f"Có lỗi xảy ra: {error_msg}")
             st.write(response.text)
         except Exception as e:
