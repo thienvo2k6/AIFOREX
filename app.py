@@ -40,7 +40,7 @@ with tab1:
                     sys_prompt = "Là chuyên gia Forex, hãy phân tích tác động của tin tức này (Tăng/Giảm rủi ro, cặp tiền bị ảnh hưởng). Trả lời ngắn gọn, súc tích."
                     contents.append(sys_prompt)
 
-                    response = client.models.generate_content(model='gemini-3.6-flash', contents=contents)
+                    response = client.models.generate_content(model='gemini-1.5-flash', contents=contents)
                     st.success("Kết quả:")
                     st.write(response.text)
                 except Exception as e:
@@ -62,13 +62,12 @@ with tab2:
         else:
             with st.spinner("AI đang soi chart..."):
                 try:
-                client = genai.Client(api_key=api_key)
-                img = Image.open(chart_file)
-                sys_prompt = f"Là chuyên gia Phân tích Kỹ thuật Forex. Dựa vào ảnh biểu đồ và bối cảnh: '{chart_context}'. Đưa ra góc nhìn ngắn gọn, súc tích nhất."
-                
-                response = client.models.generate_content(model='gemini-1.5-flash', contents=[img, sys_prompt])
-                st.success("Góc nhìn từ AI:")
-                st.write(response.text)
+                    client = genai.Client(api_key=api_key)
+                    img = Image.open(chart_file)
+                    sys_prompt = f"Là chuyên gia Phân tích Kỹ thuật Forex. Dựa vào ảnh biểu đồ và bối cảnh: '{chart_context}'. Đưa ra góc nhìn ngắn gọn, súc tích nhất."     
+                    response = client.models.generate_content(model='gemini-1.5-flash', contents=[img, sys_prompt])
+                    st.success("Góc nhìn từ AI:")
+                    st.write(response.text)
             except Exception as e:
                 error_msg = str(e)
                 if "503" in error_msg:
